@@ -20,6 +20,9 @@ const Navber = () => {
        <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
+       <li>
+        <NavLink to="/addIssue">Add Issue</NavLink>
+      </li>
     </>
   );
   const handleLogout = () => {

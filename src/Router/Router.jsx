@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router";
-import App from "../App";
+import { createBrowserRouter } from "react-router-dom"; 
 import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home/Home";
 import AllIssues from "../Pages/AllIssues/AllIssues";
@@ -7,38 +6,44 @@ import Register from "../Auth/Register/Register";
 import Login from "../Auth/Login/Login";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/ContactUs/ContactUs";
+import Error from "../Pages/Error/Error";
+import AddIssues from "../Pages/AddIssues/AddIssues";
 
-export const router=createBrowserRouter([
+export const router = createBrowserRouter([
     {
-        path:'/',
-        element:<MainLayout></MainLayout>,
-        children:[
+        path: '/',
+        element: <MainLayout />,
+        errorElement: <Error />, 
+        children: [
             {
-                index:true,
-                Component:Home
+                index: true,
+                element: <Home />
             },
             {
-                path:'allIssues',
-                Component:AllIssues
+                path: 'allIssues',
+                element: <AllIssues />
             },
             {
-                path:'register',
-                Component:Register
+                path: 'register',
+                element: <Register />
             },
             {
-                path:'login',
-                Component:Login
+                path: 'login',
+                element: <Login />
             },
             {
-                path:'about',
-                Component:AboutUs
+                path: 'about',
+                element: <AboutUs />
             },
             {
-                path:'contact',
-                Component:ContactUs,
-                loader:()=>fetch('/Districts.json').then(res=>res.json())
+                path: 'contact',
+                element: <ContactUs />,
+                loader: () => fetch('/Districts.json').then(res => res.json())
+            },
+            {
+                path:'addIssue',
+                Component:AddIssues
             }
         ]
-    },
-    
-])
+    }
+]);
