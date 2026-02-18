@@ -1,4 +1,5 @@
 import React from "react";
+import { FaClipboardList } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 
 const DashBoardLayout = () => {
@@ -32,7 +33,7 @@ const DashBoardLayout = () => {
           <div className="px-4">Navbar Title</div>
         </nav>
         <Outlet></Outlet>
-        <div className="p-4">Page Content</div>
+        
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">
@@ -68,6 +69,20 @@ const DashBoardLayout = () => {
                 <span className="is-drawer-close:hidden">Homepage</span>
               </Link>
             </li>
+            {/* my pages */}
+
+            <li>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Homepage"
+                to='/dashboard/MyIssues'
+              >
+               <FaClipboardList></FaClipboardList>
+                
+                <span className="is-drawer-close:hidden">My-Issues</span>
+              </Link>
+            </li>
+
 
             {/* List item */}
             <li>

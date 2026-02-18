@@ -11,6 +11,7 @@ import AddIssues from "../Pages/AddIssues/AddIssues";
 import IssueDetails from "../Pages/Home/IssueDetails";
 import DashBoardLayout from "../Layout/DashBoardLayout";
 import CitizenHome from "../DashBoard/CitizenHome";
+import MyIssues from "../DashBoard/MyIssues";
 
 export const router = createBrowserRouter([
     {
@@ -62,8 +63,8 @@ export const router = createBrowserRouter([
             Component:CitizenHome
         },
         {
-            path:'dashboard',
-            element:<DashBoardLayout></DashBoardLayout>
+            path:'MyIssues',
+            element:<MyIssues></MyIssues>
         }
      ]
      
