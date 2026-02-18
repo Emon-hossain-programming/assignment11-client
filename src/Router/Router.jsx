@@ -8,6 +8,9 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import Error from "../Pages/Error/Error";
 import AddIssues from "../Pages/AddIssues/AddIssues";
+import IssueDetails from "../Pages/Home/IssueDetails";
+import DashBoardLayout from "../Layout/DashBoardLayout";
+import CitizenHome from "../DashBoard/CitizenHome";
 
 export const router = createBrowserRouter([
     {
@@ -43,7 +46,26 @@ export const router = createBrowserRouter([
             {
                 path:'addIssue',
                 Component:AddIssues
+            },
+            {
+                path:'/issue/:id',
+                element:<IssueDetails></IssueDetails>
             }
         ]
+    },
+    {
+     path:'dashboard',
+     element:<DashBoardLayout></DashBoardLayout>,
+     children:[
+        {
+            index:true,
+            Component:CitizenHome
+        },
+        {
+            path:'dashboard',
+            element:<DashBoardLayout></DashBoardLayout>
+        }
+     ]
+     
     }
 ]);

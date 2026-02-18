@@ -14,15 +14,20 @@ const Navber = () => {
       <li>
         <NavLink to="/allIssues">All Issues</NavLink>
       </li>
-       <li>
+      <li>
         <NavLink to="/about">About Us</NavLink>
       </li>
-       <li>
+      <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
-       <li>
+      <li>
         <NavLink to="/addIssue">Add Issue</NavLink>
       </li>
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
     </>
   );
   const handleLogout = () => {
@@ -79,11 +84,9 @@ const Navber = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-
         <div className="flex-none gap-2">
           {user ? (
             <div className="dropdown dropdown-end">
-              
               <div
                 tabIndex={0}
                 role="button"

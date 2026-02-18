@@ -3,19 +3,40 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAxios from "../../Hooks/useAxios";
 
 
 const Register = () => {
+  const axiosSecure=useAxios()
    const { RegisterUser} =useAuth()
    const navigate=useNavigate()
    const location=useLocation()
   const { register, handleSubmit } = useForm();
   const handleRegister = (data) => {
-    console.log(data.email,data.password);
+    const { email,  name,  } = data;
     RegisterUser(data.email,data.password)
     .then(res=>{
-        console.log(res.user);
-        navigate('/')
+      console.log(res.data);
+      
+      const userInfo = {
+              name: name,
+              email: email,
+              role: "citizen", 
+              status: "active",
+              isPremium: false,
+              createdAt: new Date()
+            };
+
+            axiosSecure.post('/registerdUsers',userInfo)
+            .then(res=>{
+              if (res.data.insertedId) {
+                  console.log("User added to DB");
+                  navigate("/");
+                }
+
+            })
+        
+        
     })
     .catch(err=>{
         console.log(err);
