@@ -1,22 +1,45 @@
 import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
+import useAxios from "../../Hooks/useAxios";
 
 const SocialLogin = () => {
-    const {socialLogin}=useAuth()
-    const navigate=useNavigate()
-    const handleSignInWithGoolge=()=>{
-        socialLogin()
-        .then((res) => {
+  const { socialLogin } = useAuth();
+  const axiosSecure=useAxios()
+  const navigate = useNavigate();
+  const handleSignInWithGoolge = () => {
+    socialLogin()
+      .then((res) => {
         console.log(res.user);
-        navigate('/')
+        const user = res.user;
+
+        const userInfo = {
+          name: user?.displayName,
+          email: user?.email,
+          role: "citizen",
+          isPremium: false,
+          createdAt: new Date(),
+        };
+
+        axiosSecure.post('/registerdUsers',userInfo)
+            .then(res=>{
+              if (res.data.insertedId) {
+                  console.log("User added to DB");
+                  navigate("/");
+                }
+
+            })
+       
       })
       .catch((err) => {
         console.log(err);
       });
-    }
+  };
   return (
-    <button onClick={handleSignInWithGoolge} className="btn bg-white text-black border-[#e5e5e5] w-full">
+    <button
+      onClick={handleSignInWithGoolge}
+      className="btn bg-white text-black border-[#e5e5e5] w-full"
+    >
       <svg
         aria-label="Google logo"
         width="16"

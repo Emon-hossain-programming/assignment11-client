@@ -1,8 +1,13 @@
 import React from "react";
-import { FaClipboardList } from "react-icons/fa";
+import { FaClipboardList, FaUsers, FaUserSlash } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
+import useAdmin from "../Hooks/useAdmin";
+import { MdSettingsSuggest } from "react-icons/md";
 
 const DashBoardLayout = () => {
+  const [isAdmin, isAdminLoading]=useAdmin()
+
+  if (isAdminLoading) return <span className="loading loading-spinner"></span>;
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -71,10 +76,11 @@ const DashBoardLayout = () => {
             </li>
             {/* my pages */}
 
-            <li>
+            {
+              isAdmin &&  <li>
               <Link
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
+                data-tip="My-Issues"
                 to='/dashboard/MyIssues'
               >
                <FaClipboardList></FaClipboardList>
@@ -82,6 +88,51 @@ const DashBoardLayout = () => {
                 <span className="is-drawer-close:hidden">My-Issues</span>
               </Link>
             </li>
+
+            }
+
+           
+            {
+              isAdmin &&<li>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Manage-Issues"
+                to='/dashboard/ManageIssues'
+              >
+               <MdSettingsSuggest></MdSettingsSuggest>
+                
+                <span className="is-drawer-close:hidden">Manage-Issues</span>
+              </Link>
+            </li>
+            }
+
+            {
+              isAdmin &&  <li>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="All User"
+                to='/dashboard/allUser'
+              >
+               <FaUsers></FaUsers>
+                
+                <span className="is-drawer-close:hidden">All User</span>
+              </Link>
+            </li>
+            }
+
+            <li>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Report User"
+                to='/dashboard/ReportIssues'
+              >
+               <FaUserSlash />
+                
+                <span className="is-drawer-close:hidden">Report User</span>
+              </Link>
+            </li>
+         
+            
 
 
             {/* List item */}
