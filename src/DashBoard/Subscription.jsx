@@ -1,12 +1,26 @@
 import { FaCrown, FaCheckCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import useAxios from "../Hooks/useAxios";
+import useAuth from "../Hooks/useAuth";
+
 
 const Subscription = () => {
-  const navigate = useNavigate();
+    const {user}=useAuth()
+    const axiosSecure=useAxios()
+  
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async() => {
+    const paymentData={
+        email:user?.email,
+        name:user?.displayName
+    }
+
+    const res=await axiosSecure.post('/create-checkout-session',paymentData)
+    console.log(res.data);
     
-    navigate("/dashboard/payment");
+
+    window.location.assign(res.data.url)
+  
+    
   };
 
   return (

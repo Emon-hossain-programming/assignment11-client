@@ -217,9 +217,6 @@ const MyIssues = () => {
             </div>
 
             <div className="modal-action">
-              <button type="submit" className="btn btn-primary text-white">
-                Update Now
-              </button>
               <button
                 type="button"
                 onClick={() => modalRef.current.close()}

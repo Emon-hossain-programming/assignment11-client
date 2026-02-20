@@ -19,6 +19,7 @@ import AllUser from "../DashBoard/AllUser";
 import ReportIssue from "../DashBoard/ReportIssue";
 import IssueTracking from "../DashBoard/IssueTracking";
 import Subscription from "../DashBoard/Subscription";
+import PaymentSuccess from "../DashBoard/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -83,28 +84,36 @@ export const router = createBrowserRouter([
       },
       {
         path: "ManageIssues",
-        element: <AdminRoute>
+        element: (
+          <AdminRoute>
             <ManageIssues></ManageIssues>
-        </AdminRoute>,
+          </AdminRoute>
+        ),
       },
       {
-        path:'allUser',
-        element:<AdminRoute>
+        path: "allUser",
+        element: (
+          <AdminRoute>
             <AllUser></AllUser>
-        </AdminRoute>
+          </AdminRoute>
+        ),
       },
       {
-        path:'ReportIssues',
-        element:<ReportIssue></ReportIssue>
+        path: "ReportIssues",
+        element: <ReportIssue></ReportIssue>,
       },
       {
-        path:'issue-details/:id',
-        element:<IssueTracking></IssueTracking>
+        path: "issue-details/:id",
+        element: <IssueTracking></IssueTracking>,
       },
       {
-        path:'subcription',
-        element:<Subscription></Subscription>
-      }
-    ]
+        path: "subcription",
+        element: <Subscription></Subscription>,
+      },
+      {
+        path: "payment-success",
+        element:<PaymentSuccess></PaymentSuccess>,
+      },
+    ],
   },
 ]);

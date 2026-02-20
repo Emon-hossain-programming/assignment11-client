@@ -16,7 +16,7 @@ const CitizenHome = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
-  const { data: stats = [] } = useQuery({ // ডিফল্ট ভ্যালু খালি অ্যারে দিন
+  const { data: stats = [] } = useQuery({ 
   queryKey: ["citizen-stats", user?.email],
   queryFn: async () => {
     const res = await axiosSecure.get(`/citizen-stats/${user?.email}`);

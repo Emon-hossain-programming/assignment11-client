@@ -3,6 +3,7 @@ import { FaClipboardList, FaUsers, FaUserSlash } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 import useAdmin from "../Hooks/useAdmin";
 import { MdSettingsSuggest } from "react-icons/md";
+import { HiOutlineHome } from "react-icons/hi";
 
 const DashBoardLayout = () => {
   const [isAdmin, isAdminLoading]=useAdmin()
@@ -49,13 +50,19 @@ const DashBoardLayout = () => {
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
+
+          <ul>
+            <li>
+              <Link className="btn btn-primary" to='/'><HiOutlineHome></HiOutlineHome> </Link>
+            </li>
+          </ul>
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
               <Link
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
-                to='/'
+                data-tip="Dashboard Home"
+                to='/dashboard'
               >
                 {/* Home icon */}
                 <svg
