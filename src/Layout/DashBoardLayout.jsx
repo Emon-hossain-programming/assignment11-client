@@ -1,5 +1,10 @@
 import React from "react";
-import { FaClipboardList, FaUsers, FaUserSlash, FaWallet } from "react-icons/fa";
+import {
+  FaClipboardList,
+  FaUsers,
+  FaUserSlash,
+  FaWallet,
+} from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 import useAdmin from "../Hooks/useAdmin";
 import { MdSettingsSuggest } from "react-icons/md";
@@ -7,16 +12,14 @@ import { HiOutlineHome } from "react-icons/hi";
 import useAuth from "../Hooks/useAuth";
 
 const DashBoardLayout = () => {
-  const { user, loading: authLoading } = useAuth(); 
-const [isAdmin, isAdminLoading] = useAdmin();
+  const { user, loading: authLoading } = useAuth();
+  const [isAdmin, isAdminLoading] = useAdmin();
 
+  const isStaff = user?.role === "staff";
 
-const isStaff = user?.role === 'staff';
-
-
-if (isAdminLoading || authLoading) {
+  if (isAdminLoading || authLoading) {
     return <span className="loading loading-spinner"></span>;
-}
+  }
 
   if (isAdminLoading) return <span className="loading loading-spinner"></span>;
   return (
@@ -49,7 +52,6 @@ if (isAdminLoading || authLoading) {
           <div className="px-4">Navbar Title</div>
         </nav>
         <Outlet></Outlet>
-        
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">
@@ -63,7 +65,9 @@ if (isAdminLoading || authLoading) {
 
           <ul>
             <li>
-              <Link className="btn btn-primary" to='/'><HiOutlineHome></HiOutlineHome> </Link>
+              <Link className="btn btn-primary" to="/">
+                <HiOutlineHome></HiOutlineHome>{" "}
+              </Link>
             </li>
           </ul>
           <ul className="menu w-full grow">
@@ -72,7 +76,7 @@ if (isAdminLoading || authLoading) {
               <Link
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Dashboard Home"
-                to='/dashboard'
+                to="/dashboard"
               >
                 {/* Home icon */}
                 <svg
@@ -92,92 +96,85 @@ if (isAdminLoading || authLoading) {
               </Link>
             </li>
             {/* my pages */}
-            {
-              isAdmin &&  <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Admin-Home"
-                to='/dashboard/adminHome'
-              >
-               <FaClipboardList></FaClipboardList>
-                
-                <span className="is-drawer-close:hidden">Admin-Home</span>
-              </Link>
-            </li>
+            {isAdmin && (
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Admin-Home"
+                  to="/dashboard/adminHome"
+                >
+                  <FaClipboardList></FaClipboardList>
 
-            }
-
-
-            {
-              isAdmin &&  <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My-Issues"
-                to='/dashboard/MyIssues'
-              >
-               <FaClipboardList></FaClipboardList>
-                
-                <span className="is-drawer-close:hidden">My-Issues</span>
-              </Link>
-            </li>
-
-            }
-            <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Total Revinew"
-                to='/dashboard/totalIncome'
-              >
-               <FaWallet></FaWallet>
-                
-                <span className="is-drawer-close:hidden">Total Revinew</span>
-              </Link>
-            </li>
-
-
-           
-            {
-              (isAdmin || isStaff) && <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Manage-Issues"
-                to='/dashboard/ManageIssues'
-              >
-               <MdSettingsSuggest></MdSettingsSuggest>
-                
-                <span className="is-drawer-close:hidden">Manage-Issues</span>
-              </Link>
-            </li>
-            }
-
-            {
-              isAdmin &&  <li>
-              <Link
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="All User"
-                to='/dashboard/allUser'
-              >
-               <FaUsers></FaUsers>
-                
-                <span className="is-drawer-close:hidden">All User</span>
-              </Link>
-            </li>
-            }
-
+                  <span className="is-drawer-close:hidden">Admin-Home</span>
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Report User"
-                to='/dashboard/ReportIssues'
+                to="/dashboard/ReportIssues"
               >
-               <FaUserSlash />
-                
+                <FaUserSlash />
+
                 <span className="is-drawer-close:hidden">Report User</span>
               </Link>
             </li>
-         
-            
 
+            {!isAdmin && (
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="My-Issues"
+                  to="/dashboard/MyIssues"
+                >
+                  <FaClipboardList></FaClipboardList>
+
+                  <span className="is-drawer-close:hidden">My-Issues</span>
+                </Link>
+              </li>
+            )}
+            {isAdmin && (
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Total Revinew"
+                  to="/dashboard/totalIncome"
+                >
+                  <FaWallet></FaWallet>
+
+                  <span className="is-drawer-close:hidden">Total Revinew</span>
+                </Link>
+              </li>
+            )}
+
+            {(isAdmin || isStaff) && (
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Manage-Issues"
+                  to="/dashboard/ManageIssues"
+                >
+                  <MdSettingsSuggest></MdSettingsSuggest>
+
+                  <span className="is-drawer-close:hidden">Manage-Issues</span>
+                </Link>
+              </li>
+            )}
+
+            {isAdmin && (
+              <li>
+                <Link
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="All User"
+                  to="/dashboard/allUser"
+                >
+                  <FaUsers></FaUsers>
+
+                  <span className="is-drawer-close:hidden">All User</span>
+                </Link>
+              </li>
+            )}
 
             {/* List item */}
             <li>

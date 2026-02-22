@@ -25,6 +25,8 @@ import DashBoardIndex from "../Pages/DashBoardIndex";
 import BoostIssuesPaymetPage from "../DashBoard/BoostIssuesPaymetPage";
 import PaymentSuccessBoost from "../DashBoard/PaymentSuccessBoost";
 import TotalIncome from "../DashBoard/TotalIncome";
+import PaymentCancel from "../DashBoard/PaymentCancel";
+import PaymentCancelForBoost from "../DashBoard/PaymentCancelForBoost";
 
 export const router = createBrowserRouter([
   {
@@ -138,6 +140,14 @@ export const router = createBrowserRouter([
       {
         path:'totalIncome',
         element:<TotalIncome></TotalIncome>
+      },
+      {
+        path:'payment-cancelled',
+        element:<PaymentCancel></PaymentCancel>
+      },
+      {
+        path:'payment-cancelledd',
+        element:<PaymentCancelForBoost></PaymentCancelForBoost>
       }
     ],
   },

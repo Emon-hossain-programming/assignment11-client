@@ -32,8 +32,8 @@ const Navber = () => {
   );
   const handleLogout = () => {
     logOut()
-      .then((res) => {
-        console.log(res.user);
+      .then(() => {
+        
         navigate("/register");
       })
       .catch((err) => {

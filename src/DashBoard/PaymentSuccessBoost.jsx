@@ -73,13 +73,6 @@ const PaymentSuccessBoost = () => {
 
           <div className="space-y-3">
             <Link
-              to={`/dashboard/issue-tracking/${issueId}`}
-              className="btn btn-primary w-full gap-2 rounded-xl shadow-lg shadow-blue-200"
-            >
-              Track Progress <FaArrowRight />
-            </Link>
-
-            <Link
               to="/dashboard/MyIssues"
               className="btn btn-ghost w-full text-gray-400"
             >
