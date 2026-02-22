@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
 import useAuth from "../Hooks/useAuth";
 import useAxios from "../Hooks/useAxios";
-import { FaEdit, FaTrashAlt, FaEye } from "react-icons/fa"; 
+import { FaEdit, FaTrashAlt, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const MyIssues = () => {
   const [selectedIssue, setSelectedIssue] = useState(null);
@@ -62,7 +62,7 @@ const MyIssues = () => {
 
     const res = await axiosSecure.patch(
       `/allIssues/${selectedIssue._id}`,
-      updatedData
+      updatedData,
     );
     if (res.data.modifiedCount > 0) {
       Swal.fire("Updated!", "The issue has been updated.", "success");
@@ -82,9 +82,11 @@ const MyIssues = () => {
   return (
     <div className="p-5">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">My Submitted Issues: {myIssues.length}</h2>
+        <h2 className="text-2xl font-bold">
+          My Submitted Issues: {myIssues.length}
+        </h2>
         <Link to="/dashboard/report-issue" className="btn btn-primary btn-sm">
-           + Report New Issue
+          + Report New Issue
         </Link>
       </div>
 
@@ -96,18 +98,21 @@ const MyIssues = () => {
               <th>Image</th>
               <th>Title</th>
               <th>Category</th>
+              <th>Priority</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {myIssues.map((issue, index) => (
-              <tr key={issue._id} className="hover:bg-gray-50 transition-colors">
+              <tr
+                key={issue._id}
+                className="hover:bg-gray-50 transition-colors"
+              >
                 <th>{index + 1}</th>
                 <td>
                   <div className="avatar">
                     <div className="mask mask-squircle h-12 w-12">
-                     
                       <img src={issue.photo} alt={issue.title} />
                     </div>
                   </div>
@@ -118,12 +123,19 @@ const MyIssues = () => {
                 </td>
                 <td>
                   <span
+                    className={`badge font-medium ${issue.priority === "High" ? "badge-success text-white" : "badge-accent text-white"}`}
+                  >
+                    {issue.priority}
+                  </span>
+                </td>
+                <td>
+                  <span
                     className={`badge font-medium ${
                       issue.status === "Pending"
                         ? "badge-warning"
                         : issue.status === "Resolved"
-                        ? "badge-success text-white"
-                        : "badge-info text-white"
+                          ? "badge-success text-white"
+                          : "badge-info text-white"
                     }`}
                   >
                     {issue.status}
@@ -131,9 +143,8 @@ const MyIssues = () => {
                 </td>
                 <td>
                   <div className="flex gap-2">
-                    
-                    <Link 
-                      to={`/dashboard/issue-details/${issue._id}`} 
+                    <Link
+                      to={`/dashboard/issue-details/${issue._id}`}
                       className="btn btn-sm bg-green-500 hover:bg-green-600 text-white border-none"
                     >
                       <FaEye />
@@ -155,7 +166,9 @@ const MyIssues = () => {
                         </button>
                       </>
                     ) : (
-                      <span className="text-xs text-gray-400 italic">Locked</span>
+                      <span className="text-xs text-gray-400 italic">
+                        Locked
+                      </span>
                     )}
                   </div>
                 </td>
@@ -166,8 +179,10 @@ const MyIssues = () => {
 
         {myIssues.length === 0 && (
           <div className="text-center py-20 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-            <h3 className="text-xl font-medium text-gray-600">No reports found.</h3>
-           
+            <h3 className="text-xl font-medium text-gray-600">
+              No reports found.
+            </h3>
+
             <Link to="/dashboard/ReportIssues" className="btn btn-primary mt-4">
               Create a new report
             </Link>

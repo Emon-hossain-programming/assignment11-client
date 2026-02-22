@@ -1,4 +1,3 @@
-
 import Swal from "sweetalert2";
 import useAxios from "../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +8,7 @@ const ManageIssues = () => {
   const { data: allIssues = [], refetch } = useQuery({
     queryKey: ["allIssues"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/allIssues");
+      const res = await axiosSecure.get("/allIssuess");
       return res.data;
     },
   });
@@ -37,6 +36,7 @@ const ManageIssues = () => {
               <th>Title</th>
               <th>User Email</th>
               <th>Category</th>
+              <th>Priority</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -49,6 +49,28 @@ const ManageIssues = () => {
                 <td>{issue.email}</td>
                 <td>
                   <span className="badge badge-ghost">{issue.category}</span>
+                </td>
+                <td>
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border
+    ${
+      issue.priority === "High"
+        ? "bg-red-50 text-red-700 border-red-200 shadow-sm shadow-red-100 animate-pulse"
+        : issue.priority === "Medium"
+          ? "bg-amber-50 text-amber-700 border-amber-200"
+          : "bg-emerald-50 text-emerald-700 border-emerald-200"
+    }`}
+                  >
+                    {/* High Priority dot*/}
+                    {issue.priority === "High" && (
+                      <span className="flex h-2 w-2 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                      </span>
+                    )}
+
+                    {issue.priority}
+                  </span>
                 </td>
                 <td>
                   <span

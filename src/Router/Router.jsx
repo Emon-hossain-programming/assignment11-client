@@ -20,6 +20,11 @@ import ReportIssue from "../DashBoard/ReportIssue";
 import IssueTracking from "../DashBoard/IssueTracking";
 import Subscription from "../DashBoard/Subscription";
 import PaymentSuccess from "../DashBoard/PaymentSuccess";
+import AdminHome from "../DashBoard/AdminHome";
+import DashBoardIndex from "../Pages/DashBoardIndex";
+import BoostIssuesPaymetPage from "../DashBoard/BoostIssuesPaymetPage";
+import PaymentSuccessBoost from "../DashBoard/PaymentSuccessBoost";
+import TotalIncome from "../DashBoard/TotalIncome";
 
 export const router = createBrowserRouter([
   {
@@ -76,7 +81,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: CitizenHome,
+        element: <DashBoardIndex></DashBoardIndex>,
+      },
+      {
+        path: "citizenHome",
+        element: <CitizenHome></CitizenHome>,
       },
       {
         path: "MyIssues",
@@ -112,8 +121,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "payment-success",
-        element:<PaymentSuccess></PaymentSuccess>,
+        element: <PaymentSuccess></PaymentSuccess>,
       },
+      {
+        path: "adminHome",
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "payment/:id",
+        element: <BoostIssuesPaymetPage></BoostIssuesPaymetPage>,
+      },
+      {
+        path: "payment-success-boost",
+        element: <PaymentSuccessBoost></PaymentSuccessBoost>,
+      },
+      {
+        path:'totalIncome',
+        element:<TotalIncome></TotalIncome>
+      }
     ],
   },
 ]);

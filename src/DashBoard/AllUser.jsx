@@ -6,7 +6,6 @@ import useAxios from "../Hooks/useAxios";
 const AllUser = () => {
   const axiosSecure = useAxios();
 
-  // সব ইউজারদের ডাটাবেস থেকে নিয়ে আসা
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -30,6 +29,21 @@ const AllUser = () => {
     });
   };
 
+  const handleMakeStaff = (user) => {
+    axiosSecure.patch(`/users/staff/${user._id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${user.name} is now a Staff!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -45,7 +59,7 @@ const AllUser = () => {
           .delete(`/users/${id}`)
           .then((res) => {
             if (res.data.deletedCount > 0) {
-              refetch(); 
+              refetch();
               Swal.fire({
                 title: "Deleted!",
                 text: "User has been deleted.",
@@ -103,17 +117,25 @@ const AllUser = () => {
                 </td>
                 <td>
                   {user.role === "admin" ? (
-                    <span className="text-success font-medium italic">
-                      Authorized
-                    </span>
+                    "Admin"
+                  ) : user.role === "staff" ? (
+                    "Staff"
                   ) : (
-                    <button
-                      onClick={() => handleMakeAdmin(user)}
-                      className="btn btn-sm bg-orange-500 hover:bg-orange-600 border-none text-white gap-2"
-                      title="Make Admin"
-                    >
-                      <FaUserShield /> Make Admin
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleMakeAdmin(user)}
+                        className="btn btn-sm bg-orange-500 text-white"
+                      >
+                        Make Admin
+                      </button>
+
+                      <button
+                        onClick={() => handleMakeStaff(user)}
+                        className="btn btn-sm bg-blue-500 text-white"
+                      >
+                        Make Staff
+                      </button>
+                    </div>
                   )}
                 </td>
                 <td>

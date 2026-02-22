@@ -1,12 +1,22 @@
 import React from "react";
-import { FaClipboardList, FaUsers, FaUserSlash } from "react-icons/fa";
+import { FaClipboardList, FaUsers, FaUserSlash, FaWallet } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 import useAdmin from "../Hooks/useAdmin";
 import { MdSettingsSuggest } from "react-icons/md";
 import { HiOutlineHome } from "react-icons/hi";
+import useAuth from "../Hooks/useAuth";
 
 const DashBoardLayout = () => {
-  const [isAdmin, isAdminLoading]=useAdmin()
+  const { user, loading: authLoading } = useAuth(); 
+const [isAdmin, isAdminLoading] = useAdmin();
+
+
+const isStaff = user?.role === 'staff';
+
+
+if (isAdminLoading || authLoading) {
+    return <span className="loading loading-spinner"></span>;
+}
 
   if (isAdminLoading) return <span className="loading loading-spinner"></span>;
   return (
@@ -82,6 +92,21 @@ const DashBoardLayout = () => {
               </Link>
             </li>
             {/* my pages */}
+            {
+              isAdmin &&  <li>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Admin-Home"
+                to='/dashboard/adminHome'
+              >
+               <FaClipboardList></FaClipboardList>
+                
+                <span className="is-drawer-close:hidden">Admin-Home</span>
+              </Link>
+            </li>
+
+            }
+
 
             {
               isAdmin &&  <li>
@@ -97,10 +122,22 @@ const DashBoardLayout = () => {
             </li>
 
             }
+            <li>
+              <Link
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Total Revinew"
+                to='/dashboard/totalIncome'
+              >
+               <FaWallet></FaWallet>
+                
+                <span className="is-drawer-close:hidden">Total Revinew</span>
+              </Link>
+            </li>
+
 
            
             {
-              isAdmin &&<li>
+              (isAdmin || isStaff) && <li>
               <Link
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Manage-Issues"

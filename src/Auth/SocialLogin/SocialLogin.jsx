@@ -25,10 +25,11 @@ const SocialLogin = () => {
             .then(res=>{
               if (res.data.insertedId) {
                   console.log("User added to DB");
-                  navigate("/");
+                  
                 }
 
             })
+            navigate("/");
        
       })
       .catch((err) => {

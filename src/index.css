@@ -1,3 +1,10 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+.menu li a.active {
+    background-color: transparent !important; 
+    text-decoration: underline !important;
+    border-bottom: 2px solid blue !important;
+}
